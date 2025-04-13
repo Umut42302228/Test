@@ -1,0 +1,108 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 7%;
+    --foreground: 0 0% 98%;
+    
+    --card: 0 0% 12%;
+    --card-foreground: 0 0% 98%;
+    
+    --popover: 0 0% 12%;
+    --popover-foreground: 0 0% 98%;
+    
+    --primary: 153 91% 51%;
+    --primary-foreground: 0 0% 0%;
+    
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 0 0% 98%;
+    
+    --muted: 0 0% 20%;
+    --muted-foreground: 0 0% 62%;
+    
+    --accent: 273 100% 63%;
+    --accent-foreground: 0 0% 98%;
+    
+    --destructive: 0 63% 68%;
+    --destructive-foreground: 0 0% 98%;
+    
+    --border: 0 0% 20%;
+    --input: 0 0% 14%;
+    --ring: 153 91% 51%;
+    
+    --radius: 0.5rem;
+    
+    --chart-1: 153 91% 51%;
+    --chart-2: 273 100% 63%;
+    --chart-3: 32 100% 59%;
+    --chart-4: 208 100% 69%;
+    --chart-5: 0 63% 68%;
+    
+    --solana-green: 153 91% 51%;
+    --solana-purple: 273 100% 63%;
+    --solana-dark: 0 0% 7%;
+    --solana-card: 0 0% 12%;
+    --solana-border: 0 0% 20%;
+    --solana-hover: 0 0% 15%;
+    
+    --status-success: 153 91% 51%;
+    --status-warning: 32 100% 59%;
+    --status-danger: 0 63% 68%;
+    --status-info: 208 100% 69%;
+  }
+  
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply font-sans antialiased bg-solana-dark text-foreground;
+  }
+  
+  /* Add custom utility classes for Solana theme */
+  .bg-solana-dark {
+    background-color: hsl(0 0% 7%);
+  }
+  
+  .bg-solana-card {
+    background-color: hsl(0 0% 12%);
+  }
+  
+  .bg-solana-green {
+    background-color: hsl(153 91% 51%);
+  }
+  
+  .bg-solana-purple {
+    background-color: hsl(273 100% 63%);
+  }
+  
+  .text-solana-green {
+    color: hsl(153 91% 51%);
+  }
+  
+  .text-status-success {
+    color: hsl(153 91% 51%);
+  }
+  
+  .text-status-warning {
+    color: hsl(32 100% 59%);
+  }
+  
+  .text-status-danger {
+    color: hsl(0 63% 68%);
+  }
+  
+  .text-status-info {
+    color: hsl(208 100% 69%);
+  }
+  
+  .border-solana-border {
+    border-color: hsl(0 0% 20%);
+  }
+  
+  .hover\:bg-solana-hover:hover {
+    background-color: hsl(0 0% 15%);
+  }
+}

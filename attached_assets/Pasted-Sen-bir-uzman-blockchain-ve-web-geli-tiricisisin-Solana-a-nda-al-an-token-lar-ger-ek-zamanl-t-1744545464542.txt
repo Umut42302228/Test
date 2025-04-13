@@ -1,0 +1,115 @@
+Sen bir uzman blockchain ve web geliştiricisisin. Solana ağında çalışan, token’ları gerçek zamanlı takip eden, web arayüzlü bir uygulama kodunu yazmanı istiyorum. Uygulama, Solana mainnet-beta üzerindeki token’ları piyasa değeri (market cap), çıkış tarihi, holder sayısı ve işlem hacmi gibi kriterlere göre sıralayacak ve kullanıcı dostu bir arayüzle sunacak. Aşağıda detaylı gereksinimleri açıklıyorum:
+
+**Proje Tanımı:**
+Solana mainnet-beta ağında, özellikle yeni çıkan veya potansiyel taşıyan token’ları (shitcoin’ler dahil) takip eden bir web uygulaması geliştir. Uygulama, token’ları piyasa değeri (market cap), çıkış tarihi, holder sayısı, son 1 saatteki ve son 5 dakikadaki alım miktarı gibi kriterlere göre sıralamalı ve kullanıcıların bu verileri filtrelemesine olanak tanımalı. Uygulama yalnızca Solana mainnet-beta ile çalışmalı; testnet, devnet veya simülasyon kullanılmamalı. Kullanıcı dostu bir web arayüzü ile token verileri tablo formatında gösterilmeli ve gerçek zamanlı güncellemeler sağlanmalı.
+
+**Uygulamanın Temel İşlevleri:**
+1. **Token Verisi Toplama:**
+   - Solana mainnet-beta üzerindeki token’ları tarayın (örneğin, Raydium, Orca veya pump.fun gibi platformlardan gelen token’lar).
+   - Her token için aşağıdaki verileri gerçek zamanlı olarak toplayın:
+     - **Piyasa Değeri (Market Cap):** Token’ın toplam arzı ve fiyatı üzerinden hesaplanmalı.
+     - **Çıkış Tarihi:** Token’ın likidite havuzunun oluşturulduğu veya ilk işlem gördüğü tarih.
+     - **Holder Sayısı:** Token’ı tutan benzersiz cüzdan sayısı.
+     - **Son 1 Saatteki Alım Miktarı:** Son 1 saat içinde token için yapılan toplam satın alma hacmi (USD cinsinden).
+     - **Son 5 Dakikadaki Alım Miktarı:** Son 5 dakika içinde token için yapılan toplam satın alma hacmi (USD cinsinden).
+   - Veriler, Solana’nın program ID’lerini (örneğin, Raydium AMM, pump.fun) ve token hesaplarını analiz ederek toplanmalı.
+
+2. **Sıralama ve Filtreleme:**
+   - Token’ları aşağıdaki kriterlere göre sıralama seçenekleri sunun:
+     - Piyasa değeri (artan/azalan).
+     - Çıkış tarihi (en yeni/en eski).
+     - Holder sayısı (artan/azalan).
+     - Son 1 saatteki alım miktarı (yüksekten düşüğe).
+     - Son 5 dakikadaki alım miktarı (yüksekten düşüğe).
+   - Kullanıcılar için filtreleme seçenekleri ekleyin:
+     - Piyasa değeri aralığı (örneğin, 10K-100K USD).
+     - Çıkış tarihi (örneğin, son 24 saat, son 7 gün).
+     - Holder sayısı (örneğin, minimum 100 holder).
+     - Minimum alım miktarı (örneğin, son 1 saatte 5K USD’den fazla).
+   - Filtreler, web arayüzünde kolayca uygulanabilir olmalı (örneğin, açılır menüler veya kaydırıcılar).
+
+3. **Web Arayüzü:**
+   - Kullanıcı dostu bir web arayüzü tasarlayın, modern ve duyarlı (mobil ve masaüstü uyumlu).
+   - Ana özellikler:
+     - **Token Tablosu:** Token’ları sıralanabilir bir tabloda gösterin. Sütunlar: Token Adı, Piyasa Değeri, Çıkış Tarihi, Holder Sayısı, Son 1 Saat Alım, Son 5 Dakika Alım.
+     - **Filtre Paneli:** Kullanıcıların filtreleri kolayca ayarlayabileceği bir yan panel veya üst çubuk.
+     - **Gerçek Zamanlı Güncelleme:** Tablo, WebSocket bağlantılarıyla gerçek zamanlı olarak güncellenmeli (örneğin, her 10 saniyede bir yeni veriler).
+     - **Detay Sayfası:** Her token’a tıklanınca, token hakkında daha fazla bilgi gösteren bir sayfa (örneğin, token adresi, likidite havuzu detayları, grafik).
+   - Arayüzde arama çubuğu ekleyin; kullanıcılar token adı veya adresiyle arama yapabilmeli.
+
+4. **Veri Görselleştirme:**
+   - Token’lar için basit grafikler ekleyin (opsiyonel):
+     - Son 1 saatteki alım hacmi grafiği.
+     - Piyasa değeri değişim grafiği.
+   - Grafikler, Chart.js veya benzeri bir kütüphaneyle uygulanabilir.
+
+5. **Risk ve Güvenlik Kontrolleri:**
+   - Token’ların güvenilirliğini değerlendirmek için temel kontroller ekleyin:
+     - Likidite kilitleme durumu (örneğin, Raydium’da kilitli mi?).
+     - Token sözleşmesi doğrulaması (örneğin, mint yetkisi devre dışı mı?).
+     - Pump.fun token’ları için bonding curve tamamlanma durumu.
+   - Potansiyel rug pull riski olan token’ları işaretleyin (örneğin, düşük holder sayısı veya ani likidite çekilmesi).
+
+6. **Performans ve Ölçeklenebilirlik:**
+   - Uygulama, Solana’nın yüksek TPS kapasitesine uygun şekilde optimize edilmeli.
+   - Birden fazla RPC düğümü arasında yük dengelemesi yapın (örneğin, QuickNode, Helius).
+   - WebSocket bağlantılarıyla gerçek zamanlı veri akışı sağlayın (örneğin, yeni token’lar veya alım hacmi güncellemeleri).
+   - Büyük veri setlerini (binlerce token) hızlıca işlemek için verimli veri yapıları kullanın.
+   - Uygulamanın yanıt süresi düşük olmalı (örneğin, sayfa yüklenmesi <2 saniye).
+
+**Teknik Gereksinimler:**
+- **Programlama Dili ve Çerçeveler:**
+  - **Backend:** Node.js/TypeScript (hızlı geliştirme ve Solana entegrasyonu için) veya Rust (performans için). Python da kullanılabilir, ama performans ikinci planda.
+  - **Frontend:** React.js veya Next.js (modern ve duyarlı arayüz için). Vue.js alternatifi olabilir.
+  - **Veri İşleme:** WebSocket tabanlı veri akışı için ws veya Solana’nın logSubscribe yöntemi.
+- **Kütüphaneler ve Araçlar:**
+  - Solana Web3.js veya @solana/web3.js (mainnet-beta ile iletişim).
+  - Raydium SDK ve pump.fun entegrasyonu için gerekli bağımlılıklar.
+  - Chart.js veya D3.js (grafikler için).
+  - Axios veya Fetch (API çağrıları için).
+  - Tailwind CSS veya Bootstrap (hızlı ve şık arayüz tasarımı).
+- **Blockchain Entegrasyonu:**
+  - Uygulama, yalnızca Solana mainnet-beta ile çalışmalı. Testnet, devnet veya simülasyon desteği eklenmemeli.
+  - İşlem verileri için premium RPC düğümleri kullanılmalı (örneğin, QuickNode, Helius).
+  - Pump.fun token’larını izlemek için program ID’si (örneğin, 6EF8rrecthR5Dkzon8Nwu78hRwfCKubJ14M5uBEwF6P) kullanılmalı.
+- **Veritabanı (Opsiyonel):**
+  - Token verilerini önbelleğe almak için hafif bir veritabanı (örneğin, Redis veya MongoDB) kullanılabilir.
+  - Gerçek zamanlı veriler WebSocket’ten, statik veriler veritabanından çekilebilir.
+- **Güvenlik:**
+  - Kullanıcı verileri (eğer varsa) güvenli bir şekilde saklanmalı.
+  - RPC düğüm bağlantıları HTTPS ve güvenli WebSocket (wss://) üzerinden yapılmalı.
+  - Frontend ve backend arasında CSRF ve XSS korumaları uygulanmalı.
+
+**Web Arayüzü Detayları:**
+- **Ana Sayfa:**
+  - Token tablosu, filtre paneli ve arama çubuğu.
+  - Tablo başlıklarına tıklayınca sıralama değişmeli (örneğin, market cap’e göre artan/azalan).
+  - Her satırda token’a tıklayınca detay sayfasına yönlendirme.
+- **Filtre Paneli:**
+  - Piyasa değeri, çıkış tarihi, holder sayısı ve alım miktarı için kaydırıcılar veya input alanları.
+  - “Uygula” butonuyla filtreleme.
+- **Detay Sayfası:**
+  - Token adresi, likidite havuzu bilgileri, holder dağılımı, son işlemler.
+  - Opsiyonel: Fiyat değişim grafiği.
+- **Tasarım:**
+  - Temiz, modern ve duyarlı tasarım (mobil ve masaüstü uyumlu).
+  - Koyu/açık mod desteği (opsiyonel).
+
+**Çıktı Formatı:**
+- Kod, modüler ve iyi belgelenmiş olmalı (her fonksiyonun ne yaptığını açıklayan yorumlar).
+- Proje yapısı:
+  - `/backend`: Solana veri toplama ve işleme kodları.
+  - `/frontend`: React/Next.js tabanlı web arayüzü.
+  - `/config`: RPC URL’leri, program ID’leri gibi ayarlar için konfigürasyon dosyası.
+- README dosyası:
+  - Kurulum talimatları (örneğin, npm install, backend ve frontend çalıştırma).
+  - Bağımlılıklar listesi.
+  - Uygulamanın mainnet-beta’da nasıl başlatılacağı.
+- Örnek bir konfigürasyon dosyası sağlayın:
+  ```json
+  {
+    "rpc_url": "https://api.mainnet-beta.solana.com",
+    "websocket_url": "wss://api.mainnet-beta.solana.com",
+    "raydium_program_id": "675kPX9MHTjS2zt1qfr1NYHuzeLXfQM9H24wFSUt1Mp8",
+    "pumpfun_program_id": "6EF8rrecthR5Dkzon8Nwu78hRwfCKubJ14M5uBEwF6P"
+  }
